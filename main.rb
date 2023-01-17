@@ -1,57 +1,50 @@
 class Main
   def self.menu
-    puts " welcome to our catalog"
+    puts ' welcome to our catalog'
     puts "\n"
-    puts "Input the index to execute one of the options"
+    puts 'Input the index to execute one of the options'
 
-    @list={
-      1=>'list all books',
-      2=> 'List all music albums',
-      3=> 'List all movies',
-      4=> 'List of games',
-      5=> 'List all genres (e.g "Comedy", "Thriller")',
-      6=> 'List all labels (e.g. "Gift", "New")',
-      7=>'List all authors (e.g. "Stephen King")',
-      8=>'List all sources (e.g. "From a friend", "Online shop")',
-      9=>'Add a book',
-      10=>'Add a music album',
-      11=>'Add a movie',
-      12=>'Add a game',
-      13=>'exit',
+    @list = {
+      1 => 'list all books',
+      2 => 'List all music albums',
+      3 => 'List of games',
+      4 => 'List all genres (e.g "Comedy", "Thriller")',
+      5 => 'List all labels (e.g. "Gift", "New")',
+      6 => 'List all authors (e.g. "Stephen King")',
+      7 => 'Add a book',
+      8 => 'Add a music album',
+      9 => 'Add a game',
+      10 => 'exit'
     }
     puts "\n"
-    @list.each do  |index, item|
-      puts "#{index}, #{item}" 
+    @list.each do |index, item|
+      puts "#{index}, #{item}"
     end
     Integer(gets.chomp)
   end
-
   loop do
     case menu
     when 1
-      puts "hello"
+      puts 'Option 1 selected'
     when 2
-      puts "hello2"
+      puts 'Option 2 selected'
     when 3
-      puts "hello2"
+      puts 'Option 3 selected'
     when 4
-      puts "hello2"
+      puts 'Option 4 selected'
     when 5
-      puts "hello2"
+      puts 'Option 5 selected'
     when 6
-      puts "hello2"
+      puts 'Option 6 selected'
     when 7
-      puts "hello2"
+      puts 'Option 7 selected'
     when 9
-      puts "hello2"
+      puts 'Option 9 selected'
     when 10
-      puts "hello2"
-    when 11
-      puts "hello2"
-    when 12
-      puts "hello2"
-    when 13
+      puts 'Thank you for using our app goodbye'
       exit
+    else
+      puts 'Invalid option selected'
     end
   end
 end
