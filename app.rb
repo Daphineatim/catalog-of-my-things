@@ -1,7 +1,7 @@
 require 'date'
-require_relative './music_album.rb'
-require_relative './genre.rb'
-require_relative './data.rb'
+require_relative './music_album'
+require_relative './genre'
+require_relative './data'
 class App
   def initialize
     @music_albums = []
@@ -16,7 +16,7 @@ class App
       puts 'no genres records available'
     else
       genres = @music_albums.map(&:genre).uniq
-      puts "Here are the genres:\n#{genres.join(', ').to_s}"
+      puts "Here are the genres:\n#{genres.join(', ')}"
     end
   end
 

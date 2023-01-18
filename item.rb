@@ -24,7 +24,7 @@ class Item
   def can_be_archived?
     # @publish_date > 10
     # (@publish_date.year + 10) <= Date.today.year
-    ((Date.today.year- @publish_date) / 31_536_000).floor > 10
+    ((Date.today.year - @publish_date) / 31_536_000).floor > 10
   end
 end
 
