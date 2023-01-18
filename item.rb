@@ -9,6 +9,11 @@ class Item
     @archived=archived
   end
 
+  def author=(author)
+    author.items.push(self) unless author.items.include?(self)
+    @author = author
+  end
+
   def can_be_archived?
     publish_date > 10
   end

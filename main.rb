@@ -1,3 +1,5 @@
+require_relative './action_handler'
+
 class Main
   def self.menu
     puts " welcome to our catalog"
@@ -26,6 +28,8 @@ class Main
     Integer(gets.chomp)
   end
 
+  a=ActionHandler.new
+
   loop do
     case menu
     when 1
@@ -41,7 +45,7 @@ class Main
     when 6
       puts "hello2"
     when 7
-      puts "hello2"
+      a.list_authors
     when 9
       puts "hello2"
     when 10
@@ -49,7 +53,7 @@ class Main
     when 11
       puts "hello2"
     when 12
-      puts "hello2"
+      a.add_game
     when 13
       exit
     end

@@ -1,7 +1,15 @@
 require_relative 'author'
 require_relative 'game'
+require_relative 'creation'
+require 'json'
 
-module ModuleName
+class ActionHandler
+  
+  def initialize
+    @authors = []
+    @games = []
+  end
+
  def list_games
     if @games.empty?
       puts 'There are no games on the list'
@@ -18,13 +26,18 @@ module ModuleName
   end
 
    def list_authors
-    if @authors.empty?
+    if File.empty?('storage_files/saved_authors.json')
       puts 'There are no authors on the list'
     else
-
-      @authors.each do |author|
-        puts "Author #{author.first_name} #{author.last_name} is now on the list"
+      saved_authors = JSON.parse(File.read('storage_files/saved_authors.json'))
+      saved_authors.each do |author|
+        new_author = Author.new(author['first_name'], author['last_name'])
+        @authors << new_author
       end
+    end
+    puts "Authors are:"
+    @authors.each do |author|
+      puts "#{author.first_name} #{author.last_name}"
     end
   end
 
@@ -38,9 +51,9 @@ module ModuleName
     puts 'Please enter the archived status of the game (true/false)'
     archived = gets.chomp
 
-    new_game = Game.new(multiplayer, last_played_at, publish_date, archived)
+    new_game = Game.new(genre, author, source, label, publish_date,last_played_at,multiplayer, archived:false)
     @games << new_game
+    add_game_json(genre, author, source, label, publish_date,last_played_at,multiplayer, archived:false)
     puts "Game #{new_game} was added to the list"
   end
 end
-end 
