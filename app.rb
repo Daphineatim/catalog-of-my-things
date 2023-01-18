@@ -1,5 +1,6 @@
 require_relative 'book'
 require_relative 'label'
+require_relative './data'
 
 class App
   def initialize
@@ -11,29 +12,18 @@ class App
     @authors = []
   end
 
-  def select(action)
-    case action
-    when 1
-      list_all_books
-
-    when 5
-      list_all_labels
-
-    when 7
-      add_a_book
-    end
-  end
 
   def add_a_book
     puts "\nPublisher\n"
     publisher = gets.chomp
     puts "\nCover state\n"
     cover = gets.chomp
-    puts "\nPublish date\n"
+    puts "\nPublish date Format: dd/mm/yyyy\n"
     date = gets.chomp
     book = Book.new(publisher, cover, date)
     @books.push(book)
-    puts "\nWould you like to add a label?\n"
+    add_book(publisher, cover, date)
+    puts "\nWould you like to add a label? press 1 to proceed any other key to exit\n"
     option = gets.chomp.to_i
     if option == 1
       puts "\nChoose a title for the label\n"
@@ -43,16 +33,10 @@ class App
       label = Label.new(label_title, label_color)
       @labels.push(label)
     end
-    menu
   end
 
   def list_all_books
-    if @books.empty?
-      puts "\nThere are no books available\n"
-    else
-      @books.each { |book| puts "Publisher #{book.publisher}" }
-    end
-    menu
+    list_books
   end
 
   def list_all_labels
@@ -61,6 +45,5 @@ class App
     else
       @labels.each { |label| puts "Label name #{label.title} of color #{label.color}" }
     end
-    menu
   end
 end
