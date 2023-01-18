@@ -14,7 +14,8 @@ def save_music_album(genre, author, source, label, publish_date, on_spotify) # r
   return unless File.exist?('./json/music_album.json')
 
   open_file = File.open('./json/music_album.json')
-  if open_file.empty?
+
+  if open_file.size.zero? # rubocop:disable Style/ZeroLengthPredicate
     music_album = [obj]
   else
     music_album = JSON.parse(File.read('./json/music_album.json'))
@@ -30,7 +31,34 @@ end
 def load_music_album() # rubocop:disable Metrics/MethodLength
   if File.exist?('./json/music_album.json')
     open_album = File.open('./json/music_album.json')
+    if open_album.size.zero? # rubocop:disable Style/ZeroLengthPredicate
+      puts 'no music genres'
+    else
+      read_album = JSON.parse(File.read('./json/music_album.json'))
+      read_album.each do |music_albums|
+        music_albums = MusicAlbum.new(music_albums['genre'], music_albums['author'], music_albums['source'],
+                                      music_albums['label'], music_albums['publish_date'], music_albums['on_spotify'])
+        @music_albums << music_albums
+      end
+    end
+    open_album.close
+  else
+    puts 'create a music album record'
+  end
+  puts 'Genres'
+  @music_albums.map do |album|
+    puts "\n Genre :\"#{album.genre}\"\n author: \"#{album.author}\"
+        \n Source: \"#{album.source}\" \n label: \"#{album.label}
+      \n Publish date: \"#{album.publish_date}\" \n On Spotify: \"#{album.on_spotify}"
+  end
+end
+
+def load_genre()
+  if File.exist?('./json/music_album.json')
+    open_album = File.open('./json/music_album.json')
+    # rubocop: disable
     if open_album.empty?
+      # rubocop: enable
       puts 'no music albums'
     else
       read_album = JSON.parse(File.read('./json/music_album.json'))
@@ -45,9 +73,6 @@ def load_music_album() # rubocop:disable Metrics/MethodLength
     puts 'create a music album record'
   end
   puts 'Music albums'
-  @music_albums.map do |album|
-    puts "\n Genre :\"#{album.genre}\"\n author: \"#{album.author}\"
-        \n Source: \"#{album.source}\" \n label: \"#{album.label}
-      \n Publish date: \"#{album.publish_date}\" \n On Spotify: \"#{album.on_spotify}"
-  end
+  genres = @music_albums.map(&:genre).uniq
+  puts "Here are the genres:\n#{genres.join(', ')}"
 end

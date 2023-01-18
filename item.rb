@@ -8,7 +8,6 @@ class Item
     @source = source
     @label = label
     @publish_date = publish_date
-    # Date.strptime(publish_date, '%Y/%m/%d')
     @archived = false
   end
 
@@ -22,12 +21,12 @@ class Item
   end
 
   def can_be_archived?
-    # @publish_date > 10
-    # (@publish_date.year + 10) <= Date.today.year
-    ((Date.today.year - @publish_date) / 31_536_000).floor > 10
+    get_today_date = DateTime.now.strftime('%d/%m/')
+    get_today_year = DateTime.now.strftime('%Y')
+    today = get_today_date + (get_today_year.to_i - 10).to_s
+    Date.strptime(@publish_date, '%d/%m/%y') > Date.strptime(today, '%d/%m/%y')
   end
 end
 
-# fg = Item.new('genre', 'author', 'source', 'label', '2023-01-01')
-# puts fg.can_be_archived?
-# fg.move_to_archive
+cv = Item.new('genre', 'author', 'source', 'label', '02/02/2001')
+puts cv.can_be_archived?

@@ -12,12 +12,7 @@ class App
   end
 
   def listgenres
-    if @music_albums.empty?
-      puts 'no genres records available'
-    else
-      genres = @music_albums.map(&:genre).uniq
-      puts "Here are the genres:\n#{genres.join(', ')}"
-    end
+    load_genre
   end
 
   def add_musicalbum
@@ -29,7 +24,7 @@ class App
     source = gets.chomp
     puts 'Enter the label:'
     label = gets.chomp
-    puts 'Enter the publish date: yyyy-mm-dd'
+    puts 'Enter the publish date according to this format: dd/mm/yyy'
     publish_date = gets.chomp.to_s
     puts 'Is it on Spotify? (true/false)'
     on_spotify = gets.chomp

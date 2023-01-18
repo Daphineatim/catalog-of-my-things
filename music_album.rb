@@ -11,6 +11,3 @@ class MusicAlbum < Item
     super && @on_spotify
   end
 end
-
-df = MusicAlbum.new('genre', 'author', 'source', 'label', 20, true)
-puts df.can_be_archived?
