@@ -39,7 +39,7 @@ class Main
     when 3
       puts "hello2"
     when 4
-      puts "hello2"
+      a.list_games
     when 5
       puts "hello2"
     when 6

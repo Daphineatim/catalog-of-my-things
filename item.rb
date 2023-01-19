@@ -7,9 +7,10 @@ class Item
     @archived=false
   end
 
-  def author=(author)
-    author.items.push(self) unless author.items.include?(self)
+  def author(author)
     @author = author
+    author.items.push(self) unless author.items.include?(self)
+    
   end
 
   def can_be_archived?

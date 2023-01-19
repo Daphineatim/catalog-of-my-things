@@ -1,13 +1,16 @@
 require_relative 'author'
 require_relative 'game'
 require_relative 'creation'
+require_relative 'preserve'
 require 'json'
 
 class ActionHandler
-  
+  include GamesHandler
+
   def initialize
-    @authors = []
-    @games = []
+    @authors = load_authors
+    @games = load_games
+
   end
 
  def list_games
@@ -53,7 +56,24 @@ class ActionHandler
 
     new_game = Game.new(publish_date,last_played_at,multiplayer)
     @games << new_game
-    add_game_json( publish_date,last_played_at,multiplayer)
-    puts "Game #{new_game} was added to the list"
+    add_game_json(publish_date, last_played_at, multiplayer)
+
+    puts 'Do you want to add the author of the game? (y/n)'
+    answer = gets.chomp
+    if answer == 'y'
+      puts 'Please enter the first name of the author'
+      first_name = gets.chomp
+      puts 'Please enter the last name of the author'
+      last_name = gets.chomp
+      new_author = Author.new(first_name, last_name)
+      @authors << new_author
+      add_author_json(first_name, last_name)
+      puts 'Author was added to the list'      
+    els if answer == 'n'
+      puts 'Thank you for adding the game to the list'
+    else
+      puts 'Please enter a valid answer?'
+    end
+    puts 'Game was added to the list'   
   end
 end
