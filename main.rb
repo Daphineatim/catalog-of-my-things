@@ -1,6 +1,22 @@
-require_relative './app'
+require 'json'
+require_relative './books/list_items'
+require_relative './books/create_book'
+require_relative './modules/save_books'
+require_relative './modules/load_books'
+require_relative './books/label'
+
 class Main
-  def self.menu
+  include SaveBookData
+  include LoadBookData
+  def initialize
+    @books = load_books
+    @labels = load_labels
+    @list_items = ListItems.new
+
+    menu
+  end
+
+  def menu
     puts ' welcome to our catalog'
     puts "\n"
     puts 'Input the index to execute one of the options'
@@ -17,40 +33,54 @@ class Main
       9 => 'Add a game',
       10 => 'exit'
     }
-    puts "\n"
-    @list.each do |index, item|
-      puts "#{index}, #{item}"
+    loop_method
+  end
+
+  def loop_method
+    loop do
+      input = obtain_input
+      case input
+      when 1, 5, 7, 10
+        handle_books(input)
+      when 2
+        puts 'Option 2 selected'
+      when 3
+        puts 'Option 3 selected'
+      when 4
+        puts 'Option 4 selected'
+      when 6
+        puts 'Option 6 selected'
+      when 9
+        puts 'Option 9 selected'
+      else
+        puts 'Invalid option selected'
+      end
     end
+  end
+
+  def obtain_input
+    puts "\n"
+    @list.each { |index, item| puts "#{index}, #{item}" }
     Integer(gets.chomp)
   end
-  newapp = App.new
-  loop do
-    case menu
+
+  def handle_books(input)
+    case input
     when 1
-      newapp.list_all_books
-    when 2
-      puts 'Option 2 selected'
-    when 3
-      puts 'Option 3 selected'
-    when 4
-      puts 'Option 4 selected'
+      @list_items.show_books_list(@books)
     when 5
-      newapp.list_all_labels
-    when 6
-      puts 'Option 6 selected'
+      @list_items.show_labels_list(@labels)
     when 7
-      newapp.add_a_book
-    when 9
-      puts 'Option 9 selected'
+      @books << CreateBook.new.create_book
     when 10
+      save_data(@books)
       puts 'Thank you for using our app goodbye'
       exit
-    else
-      puts 'Invalid option selected'
     end
   end
 end
 
 def main
-  Main.New
+  Main.new
 end
+main
