@@ -1,61 +1,53 @@
-require_relative './action_handler'
-
+require './app'
+require './data'
 class Main
   def self.menu
-    puts " welcome to our catalog"
+    puts ' welcome to our catalog'
     puts "\n"
-    puts "Input the index to execute one of the options"
+    puts 'Input the index to execute one of the options'
 
-    @list={
-      1=>'list all books',
-      2=> 'List all music albums',
-      3=> 'List all movies',
-      4=> 'List of games',
-      5=> 'List all genres (e.g "Comedy", "Thriller")',
-      6=> 'List all labels (e.g. "Gift", "New")',
-      7=>'List all authors (e.g. "Stephen King")',
-      8=>'List all sources (e.g. "From a friend", "Online shop")',
-      9=>'Add a book',
-      10=>'Add a music album',
-      11=>'Add a movie',
-      12=>'Add a game',
-      13=>'exit',
+    @list = {
+      1 => 'list all books',
+      2 => 'List all music albums',
+      3 => 'List of games',
+      4 => 'List all genres (e.g "Comedy", "Thriller")',
+      5 => 'List all labels (e.g. "Gift", "New")',
+      6 => 'List all authors (e.g. "Stephen King")',
+      7 => 'Add a book',
+      8 => 'Add a music album',
+      9 => 'Add a game',
+      10 => 'exit'
     }
     puts "\n"
-    @list.each do  |index, item|
-      puts "#{index}, #{item}" 
+    @list.each do |index, item|
+      puts "#{index}, #{item}"
     end
     Integer(gets.chomp)
   end
-
-  a=ActionHandler.new
-
+  apl=App.new
   loop do
     case menu
     when 1
       puts "hello"
     when 2
-      puts "hello2"
+      puts "hello"
     when 3
-      puts "hello2"
+      apl.listgame
     when 4
-      a.list_games
+      puts "hello"
     when 5
-      puts "hello2"
+      puts "hello"
     when 6
-      puts "hello2"
+      apl.list_authors
     when 7
-      a.list_authors
+      puts "hello"
     when 9
-      puts "hello2"
+      apl.add_game
     when 10
-      puts "hello2"
-    when 11
-      puts "hello2"
-    when 12
-      a.add_game
-    when 13
+      puts "thank you for using our app"
       exit
+    else
+      puts 'Invalid option selected'
     end
   end
 end
