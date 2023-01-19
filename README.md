@@ -29,7 +29,6 @@
 
 > Catalog of things,in this project, we are creating a console app that will keep a record of different types of things which will help you organize your : books, music albums, movies, and games it will help you preserve the data in JSON format.
 
-
 ![Alt text](UML%20class.jpeg)
 
 **CATALOG OF MY THINGS**
@@ -69,46 +68,64 @@
 - Add a movie
 - Add a game
 
-
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- LIVE DEMO -->
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-> None
-
+> Please visit our zoom video presentation. Click the []() button.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
 
-## 💻 Getting Started <a name="getting-started"></a>
-
-> To start and run this project
-```
-bundle install
-```
-```
-ruby main.rb
-```
+> ## 💻 Getting Started <a name="getting-started"></a>
 
 To get a local copy up and running, follow these steps.
 
-```git clone https://github.com/Daphineatim/catalog-of-my-things.git```
-
 ### Prerequisites
 
-In order to run you need ruby configured in your environment:
+In order to run this project you need:
 
+ruby version 2.7.0 or later
 
 ### Setup
 
 Clone this repository to your desired folder:
 
-```git clone https://github.com/Daphineatim/catalog-of-my-things.git```
+```sh
+  git clone git@github.com:Daphineatim/catalog-of-my-things.git
+  cd Catalog-of-my-things
+```
 
+### Install
+
+Install this project with:
+
+```sh
+  bundler install
+```
+
+### Usage
+
+To run the project, execute the following command:
+
+```sh
+  ruby main.rb
+```
+
+### Run tests
+
+To run tests, run the following command:
+
+```sh
+  rspec src/spec
+```
+
+### Deployment
+
+``App not deployed yet``
 
 <!--
 Example commands:
@@ -145,13 +162,15 @@ Example command:
   rails server
 ```
 --->
+
 ```
 git clone https://github.com/Daphineatim/catalog-of-my-things.git
 ```
+
 ### Run tests
 
 To run tests, run the following command:
-```rspec```
+`rspec`
 
 <!--
 Example command:
@@ -181,7 +200,6 @@ Example:
 
 > Mention all of the collaborators of this project.
 
-
 👤 **Hope Daphine Atim**
 
 - GitHub: [@daphineatim](https://github.com/daphineatim)
@@ -200,7 +218,6 @@ Example:
 - LinkedIn: [LinkedIn](https://www.linkedin.com/in/chukwuemeka-maxwell/)
 - Twitter: [Twitter](https://Maxwellchu2Orji)
 
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- FUTURE FEATURES -->
@@ -209,6 +226,7 @@ Example:
 
 > Describe 1 - 3 features you will add to the project.
 
+- [ ] **[Ability to deploy on the web]**
 - [ ] **Add Games and Author Feature**
 - [ ] **Movies Feature**
 - [ ] **Genere Feature**
@@ -240,7 +258,6 @@ If you like this project give it a :star
 > Give credit to everyone who inspired your codebase.
 
 I would like to thank...
-
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
