@@ -28,23 +28,25 @@ class Main
   loop do
     case menu
     when 1
-      puts 'hello1'
+      apl.list_all_books
     when 2
-      puts 'hello2'
+      apl.list_music_albums
     when 3
-      apl.listgame
+      puts 'Option 3 selected'
     when 4
-      puts 'hello4'
+      apl.listgenres
     when 5
-      puts 'hello5'
+      apl.list_all_labels
     when 6
-      apl.list_authors
+      puts 'Option 6 selected'
     when 7
-      puts 'hello6'
+      apl.add_a_book
+    when 8
+      apl.add_musicalbum
     when 9
-      apl.add_game
+      puts 'Option 9 selected'
     when 10
-      puts 'thank you for using our app'
+      puts 'Thank you for using our app goodbye'
       exit
     else
       puts 'Invalid option selected'
