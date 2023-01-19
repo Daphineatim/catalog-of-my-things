@@ -1,12 +1,11 @@
 require_relative './game.rb'
 require 'json'
 
-def add_game_json(genre, author, source, label, publish_date,last_played_at,multiplayer, archived:false)
+def add_game_json(publish_date,last_played_at,multiplayer)
  obj={ 
   'multiplayer' => @multiplayer,
   'last_played_at' => @last_played_at,
   'publish_date' => @publish_date,
-  'archived' => @archived
   }
  if File.exist?('storage_files/saved_games.json') 
   opened_file=File.open('storage_files/saved_games.json')

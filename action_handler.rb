@@ -51,9 +51,9 @@ class ActionHandler
     puts 'Please enter the archived status of the game (true/false)'
     archived = gets.chomp
 
-    new_game = Game.new(genre, author, source, label, publish_date,last_played_at,multiplayer, archived:false)
+    new_game = Game.new(publish_date,last_played_at,multiplayer)
     @games << new_game
-    add_game_json(genre, author, source, label, publish_date,last_played_at,multiplayer, archived:false)
+    add_game_json( publish_date,last_played_at,multiplayer)
     puts "Game #{new_game} was added to the list"
   end
 end
