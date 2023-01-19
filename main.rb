@@ -1,54 +1,44 @@
+require_relative 'app'
+
 class Main
-  def self.menu
-    puts ' welcome to our catalog'
-    puts "\n"
-    puts 'Input the index to execute one of the options'
+  def start
+    puts "
+      1 - list all books
+      2 - List all music albums
+      3 - List of games
+      4 - List all genres
+      5 - List all labels
+      6 - List all authors
+      7 - Add a book
+      8 - Add a music album
+      9 - Add a game
+      10 - exit'
+          "
 
-    @list = {
-      1 => 'list all books',
-      2 => 'List all music albums',
-      3 => 'List of games',
-      4 => 'List all genres (e.g "Comedy", "Thriller")',
-      5 => 'List all labels (e.g. "Gift", "New")',
-      6 => 'List all authors (e.g. "Stephen King")',
-      7 => 'Add a book',
-      8 => 'Add a music album',
-      9 => 'Add a game',
-      10 => 'exit'
-    }
-    puts "\n"
-    @list.each do |index, item|
-      puts "#{index}, #{item}"
-    end
-    Integer(gets.chomp)
-  end
-  loop do
-    case menu
-    when 1
-      puts 'Option 1 selected'
-    when 2
-      puts 'Option 2 selected'
-    when 3
-      puts 'Option 3 selected'
-    when 4
-      puts 'Option 4 selected'
-    when 5
-      puts 'Option 5 selected'
-    when 6
-      puts 'Option 6 selected'
-    when 7
-      puts 'Option 7 selected'
-    when 9
-      puts 'Option 9 selected'
-    when 10
-      puts 'Thank you for using our app goodbye'
-      exit
+    action = gets.chomp.to_i
+    if action < 10 && action.positive?
+      starting(action)
+    elsif action == 10
+      puts 'Thanks for visiting our app'
     else
-      puts 'Invalid option selected'
+      start
+    end
+  end
+
+  def starting(action)
+    app = App.new
+    case action
+    when 1
+      app.list_all_books
+
+    when 5
+      app.list_all_labels
+
+    when 7
+      app.add_a_book
+
     end
   end
 end
 
-def main
-  Main.New
-end
+Main.new.start

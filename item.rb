@@ -1,36 +1,27 @@
-class Book < Item
-  attr_accessor :publisher, :cover_state
-
-  alias can_be can_be_archived?
-
-  def initialize(publisher, cover_state, publish_date, id = Random.rand(1..1000))
-    super(publish_date, id)
-    @publisher = publisher
-    @cover_state = cover_state
-  end
-
-  def can_be_archived?
-    @cover_state == 'bad' || can_be
-  end
-end
+require 'date'
 
 class Item
-  def initialize(genre, author, source, label, publish_date)
-    @id = rand(1..30)
-    @genre = genre
-    @author = author
-    @source = source
-    @label = label
+  attr_accessor :id, :publish_date, :archived
+  attr_reader :label, :author, :genre, :source
+
+
+  def initialize(publish_date, id = Random.rand(1..1000))
+    @id = id
     @publish_date = publish_date
     @archived = false
   end
 
-  def move_to_archive
-    can_be_archived?
+  def can_be_archived?
+    today_date = DateTime.now.strftime('%d/%m/')
+    year = DateTime.now.strftime('%y')
+    ref_date = today_date + (year.to_i - 10).to_s
+    publish_date > ref_date
   end
 
-  def can_be_archived?
-    @publish_date > 10
+  def move_to_archive?
+    return unless can_be_archived?
+
+    @archived = true
   end
 
   def add_label(label)
