@@ -18,134 +18,61 @@ class App
 
   def start
     loop do
-      puts 'welcome to our catalog
+      puts ' welcome to our catalog'
+      puts "\n"
+      puts 'Input the index to execute one of the options'
 
-      1 - list all books
-      2  - List all music albums
-      3 - List of games
-      4 - List all genres
-      5 - List all labels
-      6 - List all authors
-      7 - Add a book
-      8 - Add a music album
-      9 - Add a game
-      10 - exit'
-      
+      @list = {
+        1 => 'list all books',
+        2 => 'List all music albums',
+        3 => 'List of games',
+        4 => 'List all genres (e.g "Comedy", "Thriller")',
+        5 => 'List all labels (e.g. "Gift", "New")',
+        6 => 'List all authors (e.g. "Stephen King")',
+        7 => 'Add a book',
+        8 => 'Add a music album',
+        9 => 'Add a game',
+        10 => 'exit'
+      }
+      puts "\n"
+      input = gets.chomp
+      options(input)
+    end
+  end
 
-    action = gets.chomp.to_i
-    if action < 10 && action.positive?
-      select(action)
-    elsif action == 10
-      puts 'Bye!'
+  def options(input)
+    case input
+    when '1', '5', '7', '10'
+      handle_book(input)
+    when '2'
+      puts 'list all music albums'
+    when '3'
+      puts 'List all games'
+    when '4'
+      puts 'List all genres'
+    when '6'
+      puts 'List all authors'
+    when '8'
+      puts 'Add a music album'
+    when '9'
+      puts 'Add a game'
     else
-      menu
+      puts 'Invalid option'
     end
   end
-
-  def select(action)
-    case action
-    when 1
-      list_all_books
-
-    when 5
-      list_all_labels
-
-    when 7
-      add_a_book
-    end
-  end
-
-  def add_a_book
-    puts "\nPublisher\n"
-    publisher = gets.chomp
-    puts "\nCover state\n"
-    cover = gets.chomp
-    puts "\nPublish date dd/mm/yy \n"
-    date = gets.chomp
-    book = Book.new(publisher, cover, date)
-    @books << book
-    puts "\nWould you like to add a label? (1) - YES // (2)
-    - NO\n"
-    option = gets.chomp.to_i
-    if option == 1
-      puts "\nChoose a title for the label\n"
-      label_title = gets.chomp
-      puts "\nChoose a color for the label\n"
-      label_color = gets.chomp
-      label = Label.new(label_title, label_color)
-      @labels << label
-    end
-    save_all_labels_books
-  end
-
-  def save_all_labels_books
-    bjson = []
-    @books.each do |book|
-      bjson.push({ publisher: book.publisher, cover_state:
-    book.cover_state, publish_date: book.publish_date })
-    end
-    bookson = JSON.generate(bjson)
-    File.write('books.json', bookson)
-    ljson = []
-    @labels.each do |label|
-      ljson.push({ title: label.title, color: label.color })
-    end
-    labson = JSON.generate(ljson)
-    File.write('labels.json', labson)
-    self.menu
-  end
-
-  def list_books_stored
-    if File.exist?('books.json') && !File.zero?('books.json')
-      bookfile = File.open('books.json')
-      bookjson = bookfile.read
-      JSON.parse(bookjson).map do |book|
-        booksjson = Book.new(book['publisher'],
-                             book['cover_state'],
-                             book['publish_date'])
-        @books << booksjson
-      end
-      bookfile.close
-    else
-      File.new('books.json', 'w')
-    end
-  end
-
-  def list_all_books
-    if @books.empty?
-      puts "\nThere are no books available\n"
-    else
-      @books.each do |book|
-        puts "\nPublisher #{book.publisher} Cover #
-{book.cover_state} published #{book.publish_date}\n"
-      end
-    end
-    self.menu
-  end
-
-  def list_all_labels
-    if @labels.empty?
-      puts "\nThere are no labels available"
-    else
-      @labels.each do |label|
-        puts "\nLabel name #
-{label.title} of color #{label.color}\n"
-      end
-    end
-    self.menu
-  end
-
-  def list_labels_stored
-    if File.exist?('labels.json') && !File.zero?('labels.json')
-      labelsfile = File.open('labels.json')
-      labeljson = labelsfile.read
-      JSON.parse(labeljson).map do |label|
-        labeljson = Label.new(label['title'], label['color'])
-        @labels << labeljson
-      end
-      labelsfile.close
-    else
-      File.new('labels.json', 'w')
+  
+  def handle_book(input)
+    case input
+    when '1'
+      @list_items.show_books_list(@books)
+    when '5'
+      @list_items.show_labels_list(@labels)
+    when '7'
+      @books << CreateBook.new.create_book
+    when '10'
+      save_data(@books)
+      puts 'exit'
+      exit
     end
   end
 end
