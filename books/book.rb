@@ -6,7 +6,7 @@ class Book < Item
   alias can_be can_be_archived?
 
   def initialize(title, publisher, cover_state, publish_date, id = Random.rand(1..1000))
-    super(publish_date, id)
+    super(title, publisher, cover_state, publish_date, id)
     @title = title
     @publisher = publisher
     @cover_state = cover_state
