@@ -20,7 +20,10 @@ class Item
   end
 
   def can_be_archived?
-    @publish_date > 10
+    get_today_date = DateTime.now.strftime('%d/%m/')
+    get_today_year = DateTime.now.strftime('%Y')
+    today = get_today_date + (get_today_year.to_i - 10).to_s
+    Date.strptime(@publish_date, '%d/%m/%y') > Date.strptime(today, '%d/%m/%y')
   end
 
   def add_label(label)
@@ -30,10 +33,6 @@ class Item
 
   def add_author(author)
     @author = author
-  end
-
-  def add_genre(genre)
-    @genre = genre
   end
 
   def add_source(source)

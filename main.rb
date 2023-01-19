@@ -28,7 +28,7 @@ class Main
   loop do
     case menu
     when 1
-      newapp.list_all_books
+      apl.list_all_books
     when 2
       apl.list_music_albums
     when 3
@@ -40,7 +40,7 @@ class Main
     when 6
       puts 'Option 6 selected'
     when 7
-      puts 'Option 7 selected'
+      apl.add_a_book
     when 8
       apl.add_musicalbum
     when 9

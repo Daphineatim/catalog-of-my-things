@@ -73,7 +73,7 @@ def load_genre()
   @genre = []
   if File.exist?('./json/genre.json')
     open_genre = File.open('./json/genre.json')
-    if open_file.size.zero? # rubocop:disable Style/ZeroLengthPredicate
+    if open_genre.size.zero? # rubocop:disable Style/ZeroLengthPredicate
       puts 'no music albums'
     else
       read_genre = JSON.parse(File.read('./json/genre.json'))
@@ -91,49 +91,48 @@ def load_genre()
   @genre.each { |gen| puts "Here are the genres:\n#{gen}" }
 end
 require_relative './book'
-require 'json'
 def add_book(publisher, cover_state, publish_date)
-  newobj={
-    publisher:publisher, 
-    cover_state:cover_state, 
-    publish_date:publish_date
+  newobj = {
+    publisher: publisher,
+    cover_state: cover_state,
+    publish_date: publish_date
   }
-  return unless File.exists?("./json/book.json")
-    newbook=File.open("./json/book.json")
-    if newbook.size.zero?
-      book=[newobj]
-    else
-      book=JSON.parse(File.read("./json/book.json"))
-      book << newobj
-    end
-    write_book=File.open("./json/book.json", "w")
-    write_book.write(JSON.generate(book))
-    write_book.close
+  return unless File.exist?('./json/book.json')
+
+  newbook = File.open('./json/book.json')
+  if newbook.size.zero? # rubocop:disable Style/ZeroLengthPredicate
+    book = [newobj]
+  else
+    book = JSON.parse(File.read('./json/book.json'))
+    book << newobj
+  end
+  write_book = File.open('./json/book.json', 'w')
+  write_book.write(JSON.generate(book))
+  write_book.close
 end
 
-def list_books
-  if File.exists?("./json/book.json")
-    newbook=File.open("./json/book.json")
-    if newbook.size.zero?
+def list_books # rubocop:disable Metrics/MethodLength:
+  if File.exist?('./json/book.json')
+    newbook = File.open('./json/book.json')
+    if newbook.size.zero? # rubocop:disable Style/ZeroLengthPredicate
       puts 'create a new book'
     else
-      books=JSON.parse(File.read("./json/book.json"))
+      books = JSON.parse(File.read('./json/book.json'))
       books.each do |book|
-        book=Book.new(book["publisher"], book['cover_state'], book['publish_date'])
+        book = Book.new(book['publisher'], book['cover_state'], book['publish_date'])
         @books << book
       end
     end
   else
-    puts "create book records"
+    puts 'create book records'
   end
 
-  puts "Books are:"
+  puts 'Books are:'
   puts "\n"
-  @books.each do |book| 
+  @books.each do |book|
     puts "Publisher: #{book.publisher}"
     puts "Cover state: #{book.cover_state}"
     puts "Published on: #{book.publish_date}"
     puts "\n\n"
   end
-end 
-
+end
