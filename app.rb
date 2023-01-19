@@ -41,5 +41,9 @@ class App
   def list_authors
     load_authors
   end
+
+   def list_all_labels
+    load_label
+  end
   
 end

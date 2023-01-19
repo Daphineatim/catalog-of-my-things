@@ -49,6 +49,51 @@ def save_game(publish_date,last_played_at,multiplayer)
   write_game.close
 end
 
+def save_label(title, color)
+  obj = {
+    title: title,
+    color: color
+  }
+
+  return unless File.exist?('./json/label.json')
+
+  open_file = File.open('./json/label.json')
+
+  if open_file.size.zero? # rubocop:disable Style/ZeroLengthPredicate
+    label = [obj]
+  else
+    label = JSON.parse(File.read('./json/label.json'))
+    label << obj
+  end
+  open_file.close
+
+  labels= File.open('./json/label.json', 'w')
+  labels.write(JSON.generate(label))
+  labels.close
+end
+
+def load_label()
+  if File.exist?('./json/label.json')
+    open_label = File.open('./json/label.json')
+    if open_label.size.zero? # rubocop:disable Style/ZeroLengthPredicate
+      puts 'no labels'
+    else
+      read_label = JSON.parse(File.read('./json/label.json'))
+      read_label.each do |label|
+        label = MusicAlbum.new(label['title'], label['color'])
+        @labels << label
+      end
+    end
+    open_label.close
+  else
+    puts 'create a label'
+  end
+  puts 'Labels'
+  @labels.map do |label|
+    puts "\n Label title: \"#{label.title}\" \n Label color: \"#{label.color}"
+  end
+end
+
 def load_authors()
   if File.exist?('./json/saved_authors.json')
     open_author = File.open('./json/saved_authors.json')
