@@ -1,4 +1,5 @@
-require_relative './app'
+require './app'
+require './data'
 class Main
   def self.menu
     puts ' welcome to our catalog'
@@ -23,23 +24,25 @@ class Main
     end
     Integer(gets.chomp)
   end
-  newapp=App.new
+  apl = App.new
   loop do
     case menu
     when 1
       newapp.list_all_books
     when 2
-      puts 'Option 2 selected'
+      apl.list_music_albums
     when 3
       puts 'Option 3 selected'
     when 4
-      puts 'Option 4 selected'
+      apl.listgenres
     when 5
-      newapp.list_all_labels
+      apl.list_all_labels
     when 6
       puts 'Option 6 selected'
     when 7
-      newapp.add_a_book
+      puts 'Option 7 selected'
+    when 8
+      apl.add_musicalbum
     when 9
       puts 'Option 9 selected'
     when 10
