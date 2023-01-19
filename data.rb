@@ -1,12 +1,9 @@
 require_relative 'music_album'
+require_relative 'genre'
 require 'json'
 
-def save_music_album(genre, author, source, label, publish_date, on_spotify) # rubocop:disable Metrics/ParameterLists
+def save_music_album(publish_date, on_spotify)
   obj = {
-    genre: genre,
-    author: author,
-    source: source,
-    label: label,
     publish_date: publish_date,
     on_spotify: on_spotify
   }
@@ -28,7 +25,29 @@ def save_music_album(genre, author, source, label, publish_date, on_spotify) # r
   write_music_album.close
 end
 
-def load_music_album() # rubocop:disable Metrics/MethodLength
+def save_genre(name)
+  obj = {
+    genre: name
+  }
+
+  return unless File.exist?('./json/genre.json')
+
+  open_file = File.open('./json/genre.json')
+
+  if open_file.size.zero? # rubocop:disable Style/ZeroLengthPredicate
+    genre = [obj]
+  else
+    genre = JSON.parse(File.read('./json/genre.json'))
+    genre << obj
+  end
+  open_file.close
+
+  write_genre = File.open('./json/genre.json', 'w')
+  write_genre.write(JSON.generate(genre))
+  write_genre.close
+end
+
+def load_music_album()
   if File.exist?('./json/music_album.json')
     open_album = File.open('./json/music_album.json')
     if open_album.size.zero? # rubocop:disable Style/ZeroLengthPredicate
@@ -36,8 +55,7 @@ def load_music_album() # rubocop:disable Metrics/MethodLength
     else
       read_album = JSON.parse(File.read('./json/music_album.json'))
       read_album.each do |music_albums|
-        music_albums = MusicAlbum.new(music_albums['genre'], music_albums['author'], music_albums['source'],
-                                      music_albums['label'], music_albums['publish_date'], music_albums['on_spotify'])
+        music_albums = MusicAlbum.new(music_albums['publish_date'], music_albums['on_spotify'])
         @music_albums << music_albums
       end
     end
@@ -47,32 +65,28 @@ def load_music_album() # rubocop:disable Metrics/MethodLength
   end
   puts 'Genres'
   @music_albums.map do |album|
-    puts "\n Genre :\"#{album.genre}\"\n author: \"#{album.author}\"
-        \n Source: \"#{album.source}\" \n label: \"#{album.label}
-      \n Publish date: \"#{album.publish_date}\" \n On Spotify: \"#{album.on_spotify}"
+    puts "\n Publish date: \"#{album.publish_date}\" \n On Spotify: \"#{album.on_spotify}"
   end
 end
 
 def load_genre()
-  if File.exist?('./json/music_album.json')
-    open_album = File.open('./json/music_album.json')
-    # rubocop: disable
-    if open_album.empty?
-      # rubocop: enable
+  @genre = []
+  if File.exist?('./json/genre.json')
+    open_genre = File.open('./json/genre.json')
+    if open_file.size.zero? # rubocop:disable Style/ZeroLengthPredicate
       puts 'no music albums'
     else
-      read_album = JSON.parse(File.read('./json/music_album.json'))
-      read_album.each do |music_albums|
-        music_albums = MusicAlbum.new(music_albums['genre'], music_albums['author'], music_albums['source'],
-                                      music_albums['label'], music_albums['publish_date'], music_albums['on_spotify'])
-        @music_albums << music_albums
+      read_genre = JSON.parse(File.read('./json/genre.json'))
+
+      read_genre.each do |name|
+        name = Genre.new(name['genre'])
+        @genre << name
       end
     end
-    open_album.close
+    open_genre.close
   else
     puts 'create a music album record'
   end
   puts 'Music albums'
-  genres = @music_albums.map(&:genre).uniq
-  puts "Here are the genres:\n#{genres.join(', ')}"
+  @genre.each { |gen| puts "Here are the genres:\n#{gen}" }
 end

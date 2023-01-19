@@ -11,6 +11,9 @@ class Genre
 
   def add_item(item)
     @items.push(item)
-    item.genre = self
+  end
+
+  def to_s
+    @name
   end
 end

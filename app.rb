@@ -5,6 +5,7 @@ require_relative './data'
 class App
   def initialize
     @music_albums = []
+    @genre = []
   end
 
   def list_music_albums
@@ -15,22 +16,27 @@ class App
     load_genre
   end
 
-  def add_musicalbum
-    puts 'Enter the genre:'
-    genre = gets.chomp
-    puts 'Enter the author:'
-    author = gets.chomp
-    puts 'Enter the source:'
-    source = gets.chomp
-    puts 'Enter the label:'
-    label = gets.chomp
-    puts 'Enter the publish date according to this format: dd/mm/yyy'
+  def add_musicalbum # rubocop:disable Metrics/MethodLength:
+    puts 'Is the album on spotify [Y/N]'
+    on_spotify = gets.chomp.downcase
+    puts 'Enter the published date format dd/mm/yyyy:'
     publish_date = gets.chomp.to_s
-    puts 'Is it on Spotify? (true/false)'
-    on_spotify = gets.chomp
-
-    @music_albums.push(MusicAlbum.new(genre, author, source, label, publish_date, on_spotify))
-    save_music_album(genre, author, source, label, publish_date, on_spotify)
+    puts 'Enter the author:'
+    @music_albums.push(MusicAlbum.new(publish_date, on_spotify))
+    save_music_album(publish_date, on_spotify)
+    puts 'would you love to save the genre press y to continue or no'
+    response = gets.chomp
+    case response
+    when 'y'
+      puts 'Enter genre such as comedy, thriller'
+      name = gets.chomp
+      @genre.push(Genre.new(name))
+      save_genre(name)
+    when 'n'
+      puts 'thank you'
+    else
+      puts 'invalid option'
+    end
     puts 'Successfully music album added'
   end
 end

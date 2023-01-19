@@ -1,6 +1,6 @@
 require_relative '../music_album'
 describe MusicAlbum do
-  df = MusicAlbum.new('genre', 'author', 'source', 'label', '01/02/2001', true)
+  df = MusicAlbum.new('01/02/2001', true)
   context 'When instancitiated and methods passed' do
     it 'expect on_spotify to be true' do
       expect(df.on_spotify).to eq true

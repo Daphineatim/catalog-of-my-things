@@ -1,17 +1,16 @@
 require 'time'
 require 'date'
 class Item
-  def initialize(genre, author, source, label, publish_date)
-    @id = rand(1..30)
-    @genre = genre
-    @author = author
-    @source = source
-    @label = label
+  attr_accessor :publish_date, :archived
+  attr_reader :genre, :author, :label
+
+  def initialize(publish_date, id = Random.rand(1..100))
+    @id = id
     @publish_date = publish_date
     @archived = false
   end
 
-  def genre=(genre)
+  def add_genre(genre)
     @genre = genre
     genre.items.push(self) unless genre.items.include?(self)
   end
@@ -27,6 +26,3 @@ class Item
     Date.strptime(@publish_date, '%d/%m/%y') > Date.strptime(today, '%d/%m/%y')
   end
 end
-
-cv = Item.new('genre', 'author', 'source', 'label', '02/02/2001')
-puts cv.can_be_archived?

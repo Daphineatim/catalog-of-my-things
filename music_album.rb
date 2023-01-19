@@ -1,13 +1,14 @@
 require_relative 'item'
 class MusicAlbum < Item
-  attr_accessor :on_spotify, :genre, :author, :source, :label, :publish_date
+  attr_accessor :on_spotify, :publish_date
 
-  def initialize(genre, author, source, label, publish_date, on_spotify) # rubocop:disable Metrics/ParameterLists
-    super(genre, author, source, label, publish_date)
+  def initialize(publish_date, on_spotify)
+    super(publish_date)
+    @id = Random.rand(1..100)
     @on_spotify = on_spotify
   end
 
   def can_be_archived?
-    super && @on_spotify
+    super && @on_spotify == true
   end
 end
