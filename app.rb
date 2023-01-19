@@ -10,7 +10,7 @@ class App
   def list_all_books
     list_books
   end
-  
+
   def add_game
     puts "\n Publish date Format: dd/mm/yyyy \n"
     publish_date = gets.chomp
@@ -26,7 +26,7 @@ class App
     return unless option == 1
 
     puts "\nEnter author first name\n"
-    first_name= gets.chomp
+    first_name = gets.chomp
     puts "\nEnter author last name\n"
     last_name = gets.chomp
     author = Author.new(first_name, last_name)
@@ -42,8 +42,7 @@ class App
     load_authors
   end
 
-   def list_all_labels
+  def list_all_labels
     load_label
   end
-  
 end

@@ -18,7 +18,6 @@ module GamesHandler
   end
 
   def load_authors
-   
     saved_authors = JSON.parse(File.read('storage_files/saved_authors.json'))
     saved_authors.each do |author|
       new_author = Author.new(author['first_name'], author['last_name'])

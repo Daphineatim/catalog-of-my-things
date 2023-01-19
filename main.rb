@@ -24,27 +24,27 @@ class Main
     end
     Integer(gets.chomp)
   end
-  apl=App.new
+  apl = App.new
   loop do
     case menu
     when 1
-      puts "hello"
+      puts 'hello1'
     when 2
-      puts "hello"
+      puts 'hello2'
     when 3
       apl.listgame
     when 4
-      puts "hello"
+      puts 'hello4'
     when 5
-      puts "hello"
+      puts 'hello5'
     when 6
       apl.list_authors
     when 7
-      puts "hello"
+      puts 'hello6'
     when 9
       apl.add_game
     when 10
-      puts "thank you for using our app"
+      puts 'thank you for using our app'
       exit
     else
       puts 'Invalid option selected'
