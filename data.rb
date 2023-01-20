@@ -46,16 +46,16 @@ def save_author(first_name, last_name)
   end
   open_file.close
 
-  write_author= File.open('./json/saved_authors.json', 'w')
+  write_author = File.open('./json/saved_authors.json', 'w')
   write_author.write(JSON.generate(author))
   write_author.close
 end
 
-def save_game(publish_date,last_played_at,multiplayer)
+def save_game(publish_date, last_played_at, multiplayer)
   obj = {
     publish_date: publish_date,
     last_played_at: last_played_at,
-    multiplayer: multiplayer,
+    multiplayer: multiplayer
   }
 
   return unless File.exist?('./json/saved_games.json')
@@ -141,9 +141,9 @@ def load_authors()
   end
 end
 
-def load_game()
+def load_game() # rubocop:disable Metrics/MethodLength
   if File.exist?('./json/saved_games.json')
-    open_game= File.open('./json/saved_games.json')
+    open_game = File.open('./json/saved_games.json')
     if open_game.size.zero? # rubocop:disable Style/ZeroLengthPredicate
       puts 'no games'
     else
@@ -159,7 +159,9 @@ def load_game()
   end
   puts 'Games'
   @games.map do |album|
-    puts "\n Publish date: \"#{album.publish_date}\" \n last played at: \"#{album.last_played_at}\"\n multiplayer: \"#{album.multiplayer}"
+    puts "\n Publish date: \"#{album.publish_date}\"
+     \n last played at: \"#{album.last_played_at}\"
+    \n multiplayer: \"#{album.multiplayer}"
   end
 end
 
@@ -203,7 +205,7 @@ def save_label(title, color)
   end
   open_file.close
 
-  labels= File.open('./json/label.json', 'w')
+  labels = File.open('./json/label.json', 'w')
   labels.write(JSON.generate(label))
   labels.close
 end
