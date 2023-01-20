@@ -1,44 +1,63 @@
-DROP TABLE IF EXISTS musicalbums
-DROP TABLE IF EXISTS genre
-DROP TABLE IF EXISTS Games
-DROP TABLE IF EXISTS author;
-DROP TABLE IF EXISTS genre
-DROP TABLE IF EXISTS musicalbums
+DROP TABLE IF EXISTS label
 
-CREATE TABLE Games (
-  id int NOT NULL GENERATED ALWAYS AS IDENTITY,
-  multiplayer boolean,
-  last_played_at date,
-  author_id int,
-  publish_date date,
-  archived boolean,
-  PRIMARY KEY(id)
-);
-
-CREATE TABLE Author (
- 	id int NOT NULL GENERATED ALWAYS AS IDENTITY,
-  first_name varchar(100),
-  last_name varchar(100),
-  PRIMARY KEY(id)
+CREATE TABLE label
+(
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    title TEXT,
+    color TEXT
 );
 
 DROP TABLE IF EXISTS genre
 
-
-CREATE TABLE genre (
-  id INT NOT NULL GENERATED ALWAYS AS IDENTITY
-  genre_name varchar(255) NOT NULL
-  PRIMARY KEY(id)
-)
-
-CREATE TABLE musicalbums (
-  id INT NOT NULL GENERATED ALWAYS AS IDENTITY,
-  publish_date DATE,
-  archived BOOLEAN DEFAULT false,
-  on_spotify BOOLEAN NOT NULL,
-  author_id INT NULL REFERENCES author(id) ON DELETE CASCADE,
-  genre_id INT NULL REFERENCES genre(id) ON DELETE CASCADE,
-  label_id INT NULL REFERENCES label(id) ON DELETE CASCADE
-  PRIMARY KEY(id)
+CREATE TABLE genre
+(
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name VARCHAR(100)
 );
 
+DROP TABLE IF EXISTS author
+
+CREATE TABLE author(
+    id INT CONSTRAINT ID_Author_PK PRIMARY KEY,
+    first_name VARCHAR(40),
+    last_name VARCHAR(40)
+);
+
+DROP TABLE IF EXISTS game
+
+CREATE TABLE game(
+    id INT CONSTRAINT ID_Games_PK PRIMARY KEY,
+    multiplayer VARCHAR(40),
+    last_played_at DATE,
+    publish_date DATE,
+    archived BOOLEAN,
+    author_id INT REFERENCES Author(id),
+    label_id INT REFERENCES labels(id),
+    genre_id INT REFERENCES genre(id)
+);
+
+DROP TABLE IF EXISTS book
+
+CREATE TABLE book(
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    publish_date DATE,
+    archived BOOLEAN DEFAULT false,
+    publisher TEXT,
+    cover_state TEXT,
+    author_id INT REFERENCES Author(id),
+    label_id INT REFERENCES labels(id),
+    genre_id INT REFERENCES genre(id)
+);
+
+DROP TABLE IF EXISTS music_album
+
+CREATE TABLE music_album
+(
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    publish_date DATE,
+    archived BOOLEAN DEFAULT false,
+    on_sportify BOOLEAN,
+    author_id INT REFERENCES Author(id),
+    label_id INT REFERENCES labels(id),
+    genre_id INT REFERENCES genre(id)
+);
