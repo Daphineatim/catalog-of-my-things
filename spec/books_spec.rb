@@ -1,7 +1,6 @@
 require_relative '../book'
 require_relative '../item'
 
-
 describe Book do
   before :all do
     @book = Book.new('Natanim', 'bad', '2023-01-10')
