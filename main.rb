@@ -32,19 +32,19 @@ class Main
     when 2
       apl.list_music_albums
     when 3
-      puts 'Option 3 selected'
+      apl.listgame
     when 4
       apl.listgenres
     when 5
       apl.list_all_labels
     when 6
-      puts 'Option 6 selected'
+      apl.list_all_authors
     when 7
       apl.add_a_book
     when 8
       apl.add_musicalbum
     when 9
-      puts 'Option 9 selected'
+      apl.add_game
     when 10
       puts 'Thank you for using our app goodbye'
       exit
