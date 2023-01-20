@@ -19,6 +19,5 @@ describe Book do
     it 'Should instantiate with given properties' do
       expect(@book.cover_state).to eql('bad')
     end
+  end
 end
-end
-
