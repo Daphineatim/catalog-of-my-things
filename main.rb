@@ -1,3 +1,4 @@
+
 require './app'
 require './data'
 class Main
@@ -24,6 +25,10 @@ class Main
     end
     Integer(gets.chomp)
   end
+
+
+  a=ActionHandler.new
+
   apl = App.new
   loop do
     case menu
@@ -43,6 +48,7 @@ class Main
       apl.add_a_book
     when 8
       apl.add_musicalbum
+
     when 9
       apl.add_game
     when 10

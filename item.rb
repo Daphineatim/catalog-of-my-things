@@ -25,6 +25,12 @@ class Item
     can_be_archived?
   end
 
+  def author(author)
+    @author = author
+    author.items.push(self) unless author.items.include?(self)
+
+  end
+
   def can_be_archived?
     get_today_date = DateTime.now.strftime('%d/%m/')
     get_today_year = DateTime.now.strftime('%Y')
@@ -35,10 +41,6 @@ class Item
   def add_label(label)
     @label = label
     label.add_item(label)
-  end
-
-  def add_author(author)
-    @author = author
   end
 
   def add_source(source)

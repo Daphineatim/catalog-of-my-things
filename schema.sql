@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS musicalbums
+DROP TABLE IF EXISTS genre
 DROP TABLE IF EXISTS Games
 DROP TABLE IF EXISTS author;
 DROP TABLE IF EXISTS genre
@@ -10,6 +12,7 @@ CREATE TABLE Games (
   author_id int,
   publish_date date,
   archived boolean,
+  PRIMARY KEY(id)
 );
 
 CREATE TABLE Author (
@@ -18,6 +21,9 @@ CREATE TABLE Author (
   last_name varchar(100),
   PRIMARY KEY(id)
 );
+
+DROP TABLE IF EXISTS genre
+
 
 CREATE TABLE genre (
   id INT NOT NULL GENERATED ALWAYS AS IDENTITY
