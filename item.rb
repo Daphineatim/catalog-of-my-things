@@ -25,12 +25,6 @@ class Item
     can_be_archived?
   end
 
-  def author(author)
-    @author = author
-    author.items.push(self) unless author.items.include?(self)
-
-  end
-
   def can_be_archived?
     get_today_date = DateTime.now.strftime('%d/%m/')
     get_today_year = DateTime.now.strftime('%Y')
