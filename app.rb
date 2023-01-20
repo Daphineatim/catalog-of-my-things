@@ -4,11 +4,6 @@ require_relative './data'
 require 'date'
 require_relative './music_album'
 require_relative './genre'
-require_relative './game'
-require_relative './author'
-require_relative './item'
-
-
 class App
   def initialize
     @music_albums = []
@@ -39,10 +34,23 @@ class App
     label_color = gets.chomp
     label = Label.new(label_title, label_color)
     @labels.push(label)
+    save_label(label_title, label_color)
   end
 
   def list_all_books
     list_books
+  end
+
+  def list_all_labels
+    load_label
+  end
+
+  def list_music_albums
+    load_music_album
+  end
+
+  def listgenres
+    load_genre
   end
 
   def add_game
@@ -74,22 +82,6 @@ class App
 
   def list_authors
     load_authors
-  end
-
-  def list_all_labels
-    if @labels.empty?
-      puts "\nThere are no labels available"
-    else
-      @labels.each { |label| puts "Label name #{label.title} of color #{label.color}" }
-    end
-  end
-
-  def list_music_albums
-    load_music_album
-  end
-
-  def listgenres
-    load_genre
   end
 
   def add_musicalbum # rubocop:disable Metrics/MethodLength:

@@ -40,7 +40,7 @@ class Item
   def add_author(author)
     @author = author
   end
-  
+
   def add_source(source)
     @source = source
   end

@@ -38,7 +38,7 @@ class Main
     when 5
       apl.list_all_labels
     when 6
-      apl.list_all_authors
+      apl.list_authors
     when 7
       apl.add_a_book
     when 8
