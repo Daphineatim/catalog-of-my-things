@@ -23,5 +23,4 @@ describe Author do
     gh.add_item(fg)
     expect(gh.items.size).to be > 0
   end
-
 end
