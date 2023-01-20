@@ -1,4 +1,3 @@
-require_relative './action_handler'
 
 require './app'
 require './data'
@@ -27,6 +26,10 @@ class Main
     Integer(gets.chomp)
   end
 
+
+  a=ActionHandler.new
+
+  apl = App.new
   loop do
     case menu
     when 1
@@ -36,22 +39,36 @@ class Main
     when 3
       puts 'Option 3 selected'
     when 4
-      puts "hello2"
+
+      a.list_games
+
+      apl.listgenres
+
     when 5
       apl.list_all_labels
     when 6
       puts 'Option 6 selected'
     when 7
-      puts "hello2"
+
+      a.list_authors
+
+      apl.add_a_book
+    when 8
+      apl.add_musicalbum
+
     when 9
       puts 'Option 9 selected'
     when 10
+
       puts "hello2"
     when 11
       puts "hello2"
     when 12
-      puts "hello2"
+      a.add_game
     when 13
+
+      puts 'Thank you for using our app goodbye'
+
       exit
     else
       puts 'Invalid option selected'
