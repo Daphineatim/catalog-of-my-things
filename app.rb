@@ -1,6 +1,7 @@
 require_relative 'book'
 require_relative 'label'
 require_relative './data'
+require_relative './author'
 require 'date'
 require_relative './music_album'
 require_relative './genre'
@@ -53,6 +54,7 @@ class App
     load_genre
   end
 
+  
   def add_game
     puts "\n Publish date Format: dd/mm/yyyy \n"
     publish_date = gets.chomp
@@ -68,7 +70,7 @@ class App
     return unless option == 1
 
     puts "\nEnter author first name\n"
-    first_name = gets.chomp
+    first_name= gets.chomp
     puts "\nEnter author last name\n"
     last_name = gets.chomp
     author = Author.new(first_name, last_name)
@@ -83,7 +85,6 @@ class App
   def list_authors
     load_authors
   end
-
   def add_musicalbum # rubocop:disable Metrics/MethodLength:
     puts 'Is the album on spotify [Y/N]'
     on_spotify = gets.chomp.downcase

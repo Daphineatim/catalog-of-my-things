@@ -3,7 +3,6 @@ require_relative 'genre'
 require_relative 'game'
 require_relative './book'
 require_relative './label'
-require_relative './author'
 require 'json'
 
 def save_music_album(publish_date, on_spotify)
@@ -47,16 +46,16 @@ def save_author(first_name, last_name)
   end
   open_file.close
 
-  write_author = File.open('./json/saved_authors.json', 'w')
+  write_author= File.open('./json/saved_authors.json', 'w')
   write_author.write(JSON.generate(author))
   write_author.close
 end
 
-def save_game(publish_date, last_played_at, multiplayer)
+def save_game(publish_date,last_played_at,multiplayer)
   obj = {
     publish_date: publish_date,
     last_played_at: last_played_at,
-    multiplayer: multiplayer
+    multiplayer: multiplayer,
   }
 
   return unless File.exist?('./json/saved_games.json')
@@ -144,7 +143,7 @@ end
 
 def load_game()
   if File.exist?('./json/saved_games.json')
-    open_game = File.open('./json/saved_games.json')
+    open_game= File.open('./json/saved_games.json')
     if open_game.size.zero? # rubocop:disable Style/ZeroLengthPredicate
       puts 'no games'
     else
@@ -160,9 +159,30 @@ def load_game()
   end
   puts 'Games'
   @games.map do |album|
-    puts "\n Publish date: \"#{album.publish_date}\" \n last played at: \"
-    #{album.last_played_at}\"\n multiplayer: \"#{album.multiplayer}"
+    puts "\n Publish date: \"#{album.publish_date}\" \n last played at: \"#{album.last_played_at}\"\n multiplayer: \"#{album.multiplayer}"
   end
+end
+
+def load_genre()
+  @genre = []
+  if File.exist?('./json/genre.json')
+    open_genre = File.open('./json/genre.json')
+    if open_genre.size.zero? # rubocop:disable Style/ZeroLengthPredicate
+      puts 'no music albums'
+    else
+      read_genre = JSON.parse(File.read('./json/genre.json'))
+
+      read_genre.each do |name|
+        name = Genre.new(name['genre'])
+        @genre << name
+      end
+    end
+    open_genre.close
+  else
+    puts 'create a music album record'
+  end
+  puts 'Music albums'
+  @genre.each { |gen| puts "Here are the genres:\n#{gen}" }
 end
 
 def save_label(title, color)
@@ -183,7 +203,7 @@ def save_label(title, color)
   end
   open_file.close
 
-  labels = File.open('./json/label.json', 'w')
+  labels= File.open('./json/label.json', 'w')
   labels.write(JSON.generate(label))
   labels.close
 end
@@ -208,28 +228,6 @@ def load_label()
   @labels.map do |label|
     puts "\n Label title: \"#{label.title}\" \n Label color: \"#{label.color}"
   end
-end
-
-def load_genre()
-  @genre = []
-  if File.exist?('./json/genre.json')
-    open_genre = File.open('./json/genre.json')
-    if open_genre.size.zero? # rubocop:disable Style/ZeroLengthPredicate
-      puts 'no music albums'
-    else
-      read_genre = JSON.parse(File.read('./json/genre.json'))
-
-      read_genre.each do |name|
-        name = Genre.new(name['genre'])
-        @genre << name
-      end
-    end
-    open_genre.close
-  else
-    puts 'create a music album record'
-  end
-  puts 'Music albums'
-  @genre.each { |gen| puts "Here are the genres:\n#{gen}" }
 end
 
 def add_book(publisher, cover_state, publish_date)
